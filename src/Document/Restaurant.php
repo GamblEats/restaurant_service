@@ -22,6 +22,11 @@ class Restaurant
     protected ArrayCollection $items;
 
     /**
+     * @MongoDB\ReferenceMany(targetDocument=Menu::class, mappedBy="restaurant")
+     */
+    protected ArrayCollection $menus;
+
+    /**
      * @MongoDB\Field(type="string")
      */
     protected string $pic;
@@ -126,8 +131,14 @@ class Restaurant
     public function toArrayFull(): array
     {
         $toArrayItems = [];
+        $toArrayMenus = [];
+
         foreach ($this->getItems() as $item) {
             $toArrayItems[] = $item->toArray();
+        }
+
+        foreach ($this->getMenus() as $menu) {
+            $toArrayMenus[] = $menu->toArray();
         }
 
         return [
@@ -139,7 +150,8 @@ class Restaurant
             'deliveryTime' => $this->getDeliveryPrice(),
             'rating' => $this->getRating(),
             'description' => $this->getDescription(),
-            'items' => $toArrayItems
+            'items' => $toArrayItems,
+            'menus' => $toArrayMenus
         ];
     }
 
@@ -253,5 +265,21 @@ class Restaurant
     public function setItems(ArrayCollection $items): void
     {
         $this->items = $items;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMenus(): ArrayCollection
+    {
+        return $this->menus;
+    }
+
+    /**
+     * @param ArrayCollection $menus
+     */
+    public function setMenus(ArrayCollection $menus): void
+    {
+        $this->menus = $menus;
     }
 }

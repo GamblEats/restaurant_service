@@ -29,6 +29,11 @@ class Restaurant
     /**
      * @MongoDB\Field(type="string")
      */
+    protected string $owner = '';
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
     protected string $pic;
 
     /**
@@ -131,14 +136,9 @@ class Restaurant
     public function toArrayFull(): array
     {
         $toArrayItems = [];
-        $toArrayMenus = [];
 
         foreach ($this->getItems() as $item) {
             $toArrayItems[] = $item->toArray();
-        }
-
-        foreach ($this->getMenus() as $menu) {
-            $toArrayMenus[] = $menu->toArray();
         }
 
         return [
@@ -151,7 +151,6 @@ class Restaurant
             'rating' => $this->getRating(),
             'description' => $this->getDescription(),
             'items' => $toArrayItems,
-            'menus' => $toArrayMenus
         ];
     }
 
@@ -281,5 +280,21 @@ class Restaurant
     public function setMenus(ArrayCollection $menus): void
     {
         $this->menus = $menus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwner(): string
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param string $owner
+     */
+    public function setOwner(string $owner): void
+    {
+        $this->owner = $owner;
     }
 }

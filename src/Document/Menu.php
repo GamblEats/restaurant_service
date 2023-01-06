@@ -21,6 +21,11 @@ class Menu
     protected Restaurant $restaurant;
 
     /**
+     * @MongoDB\Field(type="collection")
+     */
+    protected array $items = [];
+
+    /**
      * @MongoDB\Field(type="string")
      */
     protected string $name;
@@ -139,12 +144,28 @@ class Menu
     public function toArray(): array
     {
         return [
-          'id' => $this->getId(),
-          'restaurant' => $this->getRestaurant()->getName(),
-          'name' => $this->getName(),
-          'pic' => $this->getPic(),
-          'price' => $this->getPrice(),
-          'description' => $this->getDescription()
+            'id' => $this->getId(),
+            'restaurant' => $this->getRestaurant()->getName(),
+            'name' => $this->getName(),
+            'pic' => $this->getPic(),
+            'price' => $this->getPrice(),
+            'description' => $this->getDescription(),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param array $items
+     */
+    public function setItems(array $items): void
+    {
+        $this->items = $items;
     }
 }

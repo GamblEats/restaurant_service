@@ -6,10 +6,13 @@
 parameters:
     env(MONGODB_URL): ''
     env(MONGODB_DB): ''
+    app.user_api: '%env(URL_USER_API)%'
 
 services:
     # default configuration for services in *this* file
     _defaults:
+        bind:
+            $urlUser: '%app.user_api%'
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 

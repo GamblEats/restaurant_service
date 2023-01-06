@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class RestaurantController extends AbstractController
 {
@@ -48,13 +49,27 @@ class RestaurantController extends AbstractController
      * @param string $id
      * @return Response
      */
-    public function findById(Request $request, string $id): Response
+    public function findById(Request $request,string $urlUser, string $id, HttpClientInterface $httpClient): Response
     {
         $response = new JsonResponse();
         $restaurant = $this->dm->getRepository(Restaurant::class)->findOneBy(['_id' => $id]);
+        $restaurantArray = $restaurant->toArrayFull();
+
+        $restaurantArray['menus'] = $this->restaurantService->getMenuAndItemsByRestaurant($restaurant)['menus'];
+        $restaurantUser = $restaurant->getOwner();
+
+        try {
+            $requestAPI = $httpClient->request(
+                'GET',
+                $urlUser . $restaurantUser . '/view'
+            );
+            $restaurantArray['owner'] = json_decode($requestAPI->getContent());
+        } catch (\Exception $exception) {
+
+        }
 
         $response->setStatusCode(200);
-        $response->setData($restaurant->toArrayFull());
+        $response->setData($restaurantArray);
 
         return $response;
     }
@@ -75,6 +90,30 @@ class RestaurantController extends AbstractController
             $this->dm->persist($restaurant);
             $this->dm->flush();
             $response->setData('A restaurant was be created');
+            $response->setStatusCode(200);
+        }
+        catch (\Exception $exception) {
+            dd($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/restaurant/{id}/delete", name="restaurant_delete")
+     * @param Request $request
+     * @param string $id
+     * @return Response
+     */
+    public function deleteRestaurant(Request $request, string $id): Response
+    {
+        $response = new JsonResponse();
+        $restaurant = $this->dm->getRepository(Restaurant::class)->findOneBy(['_id' => $id]);
+
+        try {
+            $this->dm->remove($restaurant);
+            $this->dm->flush();
+            $response->setData('A restaurant was be deleted');
             $response->setStatusCode(200);
         }
         catch (\Exception $exception) {

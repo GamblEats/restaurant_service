@@ -19,7 +19,7 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("menu/{id}/view", name="menu_view")
+     * @Route("menu/{id}", name="menu_view")
      * @param string $id
      * @return JsonResponse
      */

@@ -140,10 +140,14 @@ class Restaurant
 
     public function toArrayFull(): array
     {
-        $toArrayItems = [];
+        $toArrayItems = $toArrayMenus = [];
 
         foreach ($this->getItems() as $item) {
             $toArrayItems[] = $item->toArray();
+        }
+
+        foreach ($this->getMenus() as $menu) {
+            $toArrayMenus[] = $menu->toArray();
         }
 
         return [
@@ -156,6 +160,7 @@ class Restaurant
             'rating' => $this->getRating(),
             'description' => $this->getDescription(),
             'items' => $toArrayItems,
+            'menus' => $toArrayMenus,
         ];
     }
 

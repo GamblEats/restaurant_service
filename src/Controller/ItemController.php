@@ -18,7 +18,7 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("item/{id}/view", name="item_view")
+     * @Route("item/{id}", name="item_view")
      * @param string $id
      * @return JsonResponse
      */

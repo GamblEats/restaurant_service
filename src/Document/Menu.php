@@ -18,7 +18,7 @@ class Menu
     /**
      * @MongoDB\ReferenceOne(targetDocument=Restaurant::class, inversedBy="menus", storeAs="id")
      */
-    protected Restaurant $restaurant;
+    protected ?Restaurant $restaurant;
 
     /**
      * @MongoDB\Field(type="collection")
@@ -126,17 +126,17 @@ class Menu
     }
 
     /**
-     * @return Restaurant
+     * @return ?Restaurant
      */
-    public function getRestaurant(): Restaurant
+    public function getRestaurant(): ?Restaurant
     {
         return $this->restaurant;
     }
 
     /**
-     * @param Restaurant $restaurant
+     * @param ?Restaurant $restaurant
      */
-    public function setRestaurant(Restaurant $restaurant): void
+    public function setRestaurant(?Restaurant $restaurant): void
     {
         $this->restaurant = $restaurant;
     }
@@ -145,7 +145,7 @@ class Menu
     {
         return [
             'id' => $this->getId(),
-            'restaurant' => $this->getRestaurant()->getName(),
+            'restaurant' => $this->getRestaurant()?->getName(),
             'name' => $this->getName(),
             'pic' => $this->getPic(),
             'price' => $this->getPrice(),

@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Document\Item;
+use App\Document\Menu;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ItemController extends AbstractController
+class MenuController extends AbstractController
 {
     private DocumentManager $dm;
 
@@ -18,16 +19,16 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @Route("item/{id}/view", name="item_view")
+     * @Route("menu/{id}/view", name="menu_view")
      * @param string $id
      * @return JsonResponse
      */
-    public function getItemById(string $id): JsonResponse
+    public function getMenuById(string $id): JsonResponse
     {
         $response = new JsonResponse();
-        $item = $this->dm->getRepository(Item::class)->findOneBy(['_id' => $id]);
+        $menu = $this->dm->getRepository(Menu::class)->findOneBy(['_id' => $id]);
         $response->setStatusCode(200);
-        $response->setData($item->toArray());
+        $response->setData($menu->toArray());
 
         return $response;
     }

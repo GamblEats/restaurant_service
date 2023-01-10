@@ -24,7 +24,7 @@ class RestaurantController extends AbstractController
     }
 
     /**
-     * @Route("/restaurant-all", name="restaurant_all")
+     * @Route("/restaurant-all", name="restaurant_all", methods={"GET"})
      * @param Request $request
      * @return Response
      */
@@ -44,7 +44,7 @@ class RestaurantController extends AbstractController
     }
 
     /**
-     * @Route("restaurant/{id}/view", name="restaurant_view")
+     * @Route("restaurant/{id}/view", name="restaurant_view", methods={"GET"})
      * @param Request $request
      * @param string $id
      * @return Response
@@ -76,7 +76,7 @@ class RestaurantController extends AbstractController
 
 
     /**
-     * @Route("/restaurant-create", name="restaurant_create")
+     * @Route("/restaurants/add", name="restaurant_create", methods={"POST"})
      * @param Request $request
      * @return Response
      */
@@ -100,7 +100,33 @@ class RestaurantController extends AbstractController
     }
 
     /**
-     * @Route("/restaurant/{id}/delete", name="restaurant_delete")
+     * @Route("/restaurant/{id}", name="restaurant_edit", methods={"PUT"})
+     * @param Request $request
+     * @param string $id
+     * @return Response
+     */
+    public function editRestaurant(Request $request, string $id): Response
+    {
+        $response = new JsonResponse();
+        $requestData = json_decode($request->getContent(), true);
+        $restaurant = $this->dm->getRepository(Restaurant::class)->findOneBy(['_id' => $id]);
+        $newRestaurant = $this->restaurantService->restaurantEdite($restaurant, $requestData);
+
+        try {
+            $this->dm->persist($newRestaurant);
+            $this->dm->flush();
+            $response->setData('The restaurant ' . $id . ' was editing.');
+            $response->setStatusCode(200);
+        }
+        catch (\Exception $exception) {
+            dd($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/restaurant/{id}/delete", name="restaurant_delete", methods={"DELETE"})
      * @param Request $request
      * @param string $id
      * @return Response

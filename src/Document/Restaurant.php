@@ -27,9 +27,9 @@ class Restaurant
     protected ArrayCollection $menus;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\Field(type="object_id")
      */
-    protected string $owner = '';
+    protected $owner;
 
     /**
      * @MongoDB\Field(type="string")
@@ -65,6 +65,11 @@ class Restaurant
      * @MongoDB\Field(type="string")
      */
     protected string $description = '';
+
+    /**
+     * @MongoDB\Field(name="categories", type="raw")
+     */
+    private $categories;
 
     /**
      * @MongoDB\Field(type="boolean")
@@ -282,19 +287,29 @@ class Restaurant
         $this->menus = $menus;
     }
 
-    /**
-     * @return string
-     */
-    public function getOwner(): string
+    public function getOwner()
     {
         return $this->owner;
     }
 
-    /**
-     * @param string $owner
-     */
-    public function setOwner(string $owner): void
+    public function setOwner($owner): void
     {
         $this->owner = $owner;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param mixed $categories
+     */
+    public function setCategories($categories): void
+    {
+        $this->categories = $categories;
     }
 }

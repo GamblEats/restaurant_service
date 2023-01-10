@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Document\Item;
 use App\Document\Restaurant;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use MongoDB\BSON\ObjectId;
 
 class RestaurantService
 {
@@ -47,6 +48,14 @@ class RestaurantService
             $restaurant->setRating($request["description"]);
         }
 
+        if (isset($request["owner"]) && $request["owner"] !== "") {
+            $restaurant->setOwner(new ObjectId($request["owner"]));
+        }
+
+        if(isset($request["categories"]) && $request["categories"] !== "") {
+            $restaurant->setCategories($request["categories"]);
+        }
+
         return $restaurant;
     }
 
@@ -82,6 +91,14 @@ class RestaurantService
 
         if(isset($request["rating"]) && $request["rating"] !== $restaurant->getRating()) {
             $restaurant->setRating($request["rating"]);
+        }
+
+        if(isset($request["owner"]) && $request["owner"] !== $restaurant->getOwner()) {
+            $restaurant->setOwner(new ObjectId($request["owner"]));
+        }
+
+        if(isset($request["categories"]) && $request["categories"] !== $restaurant->getCategories()) {
+            $restaurant->setCategories($request["categories"]);
         }
 
 

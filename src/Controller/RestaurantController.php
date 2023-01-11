@@ -34,7 +34,7 @@ class RestaurantController extends AbstractController
         $restaurants = $this->dm->getRepository(Restaurant::class)->findAll();
         $restaurantsArray = [];
         foreach ($restaurants as $restaurant) {
-            $restaurantsArray[] = $restaurant->toArray();
+            $restaurantsArray[] = $restaurant->toArrayFull();
         }
 
         $response->setStatusCode(200);

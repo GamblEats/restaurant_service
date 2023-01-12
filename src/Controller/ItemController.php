@@ -31,7 +31,11 @@ class ItemController extends AbstractController
         $response = new JsonResponse();
         $item = $this->dm->getRepository(Item::class)->findOneBy(['_id' => $idItem]);
         $response->setStatusCode(200);
-        $response->setData($item->toArray());
+        if ($item) {
+            $response->setData($item->toArray());
+        } else {
+            $response->setData(null);
+        }
 
         return $response;
     }

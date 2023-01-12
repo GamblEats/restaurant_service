@@ -44,7 +44,7 @@ class RestaurantController extends AbstractController
     }
 
     /**
-     * @Route("restaurant/{id}", name="restaurant_view", methods={"GET"})
+     * @Route("/restaurant/{id}", name="restaurant_view", methods={"GET"})
      * @param Request $request
      * @param string $id
      * @return Response

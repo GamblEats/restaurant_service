@@ -24,7 +24,7 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("menus/{id}", name="menu_view", methods={"GET"})
+     * @Route("/menus/{id}", name="menu_view", methods={"GET"})
      * @param string $id
      * @return JsonResponse
      */
@@ -39,7 +39,7 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("menus", name="menu_create", methods={"POST"})
+     * @Route("/menus", name="menu_create", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
@@ -89,7 +89,7 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("menus", name="menu_delete", methods={"DELETE"})
+     * @Route("/menus", name="menu_delete", methods={"DELETE"})
      * @param Request $request
      * @return Response
      */

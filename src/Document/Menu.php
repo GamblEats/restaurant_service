@@ -21,9 +21,9 @@ class Menu
     protected ?Restaurant $restaurant;
 
     /**
-     * @MongoDB\Field(type="collection")
+     * @MongoDB\Field(type="collection", type="raw")
      */
-    protected array $items = [];
+    protected $items;
 
     /**
      * @MongoDB\Field(type="string")
@@ -153,18 +153,15 @@ class Menu
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getItems(): array
+    public function getItems()
     {
         return $this->items;
     }
 
     /**
-     * @param array $items
+     * @param $items
      */
-    public function setItems(array $items): void
+    public function setItems($items): void
     {
         $this->items = $items;
     }

@@ -49,7 +49,7 @@ class RestaurantController extends AbstractController
      * @param string $id
      * @return Response
      */
-    public function findById(Request $request,string $urlUser, string $id, HttpClientInterface $httpClient): Response
+    public function findById(Request $request, string $urlUser, string $id, HttpClientInterface $httpClient): Response
     {
         $response = new JsonResponse();
         $restaurant = $this->dm->getRepository(Restaurant::class)->findOneBy(['_id' => $id]);
@@ -58,15 +58,15 @@ class RestaurantController extends AbstractController
         $restaurantArray['menus'] = $this->restaurantService->getMenuAndItemsByRestaurant($restaurant)['menus'];
         $restaurantUser = $restaurant->getOwner();
 
-        try {
-            $requestAPI = $httpClient->request(
-                'GET',
-                $urlUser . $restaurantUser . '/view'
-            );
-            $restaurantArray['owner'] = json_decode($requestAPI->getContent());
-        } catch (\Exception $exception) {
-
-        }
+//        try {
+//            $requestAPI = $httpClient->request(
+//                'GET',
+//                $urlUser . $restaurantUser . 'view'
+//            );
+//            $restaurantArray['owner'] = json_decode($requestAPI->getContent());
+//        } catch (\Exception $exception) {
+//
+//        }
 
         $response->setStatusCode(200);
         $response->setData($restaurantArray);

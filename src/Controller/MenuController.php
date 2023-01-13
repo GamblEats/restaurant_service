@@ -63,7 +63,7 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menus/{id}", name="menu_edit", methods={"PUT"})
+     * @Route("/menus/{id}", name="menu_edit", methods={"PATCH"})
      * @param Request $request
      * @param string $id
      * @return Response
@@ -89,15 +89,16 @@ class MenuController extends AbstractController
     }
 
     /**
-     * @Route("/menus", name="menu_delete", methods={"DELETE"})
+     * @Route("/menus/{idMenu}", name="menu_delete", methods={"DELETE"})
      * @param Request $request
+     * @param string $idMenu
      * @return Response
      */
-    public function deleteMenu(Request $request): Response
+    public function deleteMenu(Request $request, string $idMenu): Response
     {
         $response = new JsonResponse();
         $requestData = json_decode($request->getContent(), true);
-        $menu = $this->dm->getRepository(Menu::class)->findOneBy(['_id' => $requestData['id']]);
+        $menu = $this->dm->getRepository(Menu::class)->findOneBy(['_id' => $idMenu]);
 
         try {
             $this->dm->remove($menu);

@@ -33,7 +33,16 @@ class MenuController extends AbstractController
         $response = new JsonResponse();
         $menu = $this->dm->getRepository(Menu::class)->findOneBy(['_id' => $id]);
         $response->setStatusCode(200);
-        $response->setData($menu->toArray());
+        $menuArray = $menu->toArray();
+        $menuArray['items'] = [];
+        foreach ($menu->getItems() as $key => $item) {
+            $itemObject = $this->dm->getRepository(Item::class)->findOneBy(['_id' => $key]);
+            if ($itemObject) {
+                $menuArray['items'][] = $itemObject->toArray();
+            }
+        }
+
+        $response->setData($menuArray);
 
         return $response;
     }

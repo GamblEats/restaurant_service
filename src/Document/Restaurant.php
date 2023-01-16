@@ -141,16 +141,21 @@ class Restaurant
     public function toArrayFull(): array
     {
         $toArrayItems = [];
-
-        foreach ($this->getItems() as $item) {
-            $toArrayItems[] = $item->toArray();
+        if ($this->getItems()) {
+            foreach ($this->getItems() as $item) {
+                $toArrayItems[] = $item->toArray();
+            }
         }
+
 
         $toArrayCategories = [];
 
-        foreach ($this->getCategories() as $key => $category) {
-            $toArrayCategories[] = $key;
+        if ($this->getCategories()) {
+            foreach ($this->getCategories() as $key => $category) {
+                $toArrayCategories[] = $key;
+            }
         }
+
 
         return [
             'name' => $this->getName(),

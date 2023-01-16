@@ -14,7 +14,7 @@ class Item
     /**
      * @MongoDB\Id
      */
-    protected mixed $_id;
+    protected mixed $_id = null;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument=Restaurant::class, inversedBy="items", storeAs="id")
@@ -29,7 +29,7 @@ class Item
     /**
      * @MongoDB\Field(type="string")
      */
-    protected string $name;
+    protected ?string $name = null;
 
     /**
      * @MongoDB\Field(type="string")
@@ -74,17 +74,17 @@ class Item
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param ?string $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }

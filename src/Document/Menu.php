@@ -18,7 +18,7 @@ class Menu
     /**
      * @MongoDB\ReferenceOne(targetDocument=Restaurant::class, inversedBy="menus", storeAs="id")
      */
-    protected ?Restaurant $restaurant;
+    protected ?Restaurant $restaurant = null;
 
     /**
      * @MongoDB\Field(type="collection", type="raw")

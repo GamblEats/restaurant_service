@@ -14,7 +14,7 @@ class Restaurant
     /**
      * @MongoDB\Id
      */
-    protected mixed $_id;
+    protected mixed $_id = null;
 
     /**
      * @MongoDB\ReferenceMany(targetDocument=Item::class, mappedBy="restaurant")
@@ -34,12 +34,12 @@ class Restaurant
     /**
      * @MongoDB\Field(type="string")
      */
-    protected string $pic;
+    protected ?string $pic = null;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected string $name;
+    protected ?string $name = null;
 
     /**
      * @MongoDB\Field(type="string")
@@ -54,7 +54,7 @@ class Restaurant
     /**
      * @MongoDB\Field(type="string")
      */
-    protected string $deliveryTime;
+    protected ?string $deliveryTime = null;
 
     /**
      * @MongoDB\Field(type="float")
@@ -64,7 +64,7 @@ class Restaurant
     /**
      * @MongoDB\Field(type="string")
      */
-    protected string $description = '';
+    protected ?string $description = null;
 
     /**
      * @MongoDB\Field(name="categories", type="raw")
@@ -98,33 +98,33 @@ class Restaurant
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getPic(): string
+    public function getPic(): ?string
     {
         return $this->pic;
     }
 
     /**
-     * @param string $pic
+     * @param ?string $pic
      */
-    public function setPic(string $pic): void
+    public function setPic(?string $pic): void
     {
         $this->pic = $pic;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param ?string $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -141,16 +141,21 @@ class Restaurant
     public function toArrayFull(): array
     {
         $toArrayItems = [];
-
-        foreach ($this->getItems() as $item) {
-            $toArrayItems[] = $item->toArray();
+        if ($this->getItems()) {
+            foreach ($this->getItems() as $item) {
+                $toArrayItems[] = $item->toArray();
+            }
         }
+
 
         $toArrayCategories = [];
 
-        foreach ($this->getCategories() as $key => $category) {
-            $toArrayCategories[] = $key;
+        if ($this->getCategories()) {
+            foreach ($this->getCategories() as $key => $category) {
+                $toArrayCategories[] = $key;
+            }
         }
+
 
         return [
             'name' => $this->getName(),
@@ -182,7 +187,7 @@ class Restaurant
     }
 
     /**
-     * @return string
+     * @return ?string
      */
     public function getAddress(): ?string
     {
@@ -190,9 +195,9 @@ class Restaurant
     }
 
     /**
-     * @param string $address
+     * @param ?string $address
      */
-    public function setAddress(string $address): void
+    public function setAddress(?string $address): void
     {
         $this->address = $address;
     }
@@ -214,17 +219,17 @@ class Restaurant
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getDeliveryTime(): string
+    public function getDeliveryTime(): ?string
     {
         return $this->deliveryTime;
     }
 
     /**
-     * @param string $deliveryTime
+     * @param ?string $deliveryTime
      */
-    public function setDeliveryTime(string $deliveryTime): void
+    public function setDeliveryTime(?string $deliveryTime): void
     {
         $this->deliveryTime = $deliveryTime;
     }
@@ -246,17 +251,17 @@ class Restaurant
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param ?string $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }

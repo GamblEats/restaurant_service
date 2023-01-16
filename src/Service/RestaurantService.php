@@ -39,13 +39,12 @@ class RestaurantService
         if (isset($request["deliveryTime"]) && $request["deliveryTime"] !== "") {
             $restaurant->setDeliveryTime($request["deliveryTime"]);
         }
-
         if (isset($request["rating"]) && $request["rating"] !== "") {
             $restaurant->setRating($request["rating"]);
         }
 
         if (isset($request["description"]) && $request["description"] !== "") {
-            $restaurant->setRating($request["description"]);
+            $restaurant->setDescription($request["description"]);
         }
 
         if (isset($request["owner"]) && $request["owner"] !== "") {
@@ -79,10 +78,6 @@ class RestaurantService
 
         if(isset($request["deliveryPrice"]) && $request["deliveryPrice"] !== $restaurant->getDeliveryPrice()) {
             $restaurant->setDeliveryPrice($request["deliveryPrice"]);
-        }
-
-        if(isset($request["deliveryTime"]) && $request["deliveryTime"] !== $restaurant->getDeliveryTime()) {
-            $restaurant->setDeliveryTime($request["deliveryTime"]);
         }
 
         if(isset($request["deliveryTime"]) && $request["deliveryTime"] !== $restaurant->getDeliveryTime()) {

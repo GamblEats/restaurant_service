@@ -37,29 +37,33 @@ class ItemService
         return $item;
     }
 
-    public function itemEdit(array $request, DocumentManager $documentManager, Item $item): Item
+    public function itemEdit(array $request, DocumentManager $documentManager, ?Item $item): ?Item
     {
-        if(isset($request["category"]) && $request["category"] !== $item->getCategory()) {
-            $item->setCategory($request["category"]);
+        if ($item) {
+            if(isset($request["category"]) && $request["category"] !== $item->getCategory()) {
+                $item->setCategory($request["category"]);
+            }
+
+            if(isset($request["name"]) && $request["name"] !== $item->getName()) {
+                $item->setName($request["name"]);
+            }
+
+            if(isset($request["price"]) && $request["price"] !== $item->getPrice()) {
+                $item->setPrice($request["price"]);
+            }
+
+            if(isset($request["pic"]) && $request["pic"] !== $item->getPic()) {
+                $item->setPic($request["pic"]);
+            }
+
+            if(isset($request["restaurant"]) && $request["restaurant"] !== $item->getRestaurant()->getId()) {
+                $restaurant = $documentManager->getRepository(Restaurant::class)->findOneBy(['_id' => $request["restaurant"]]);
+                $item->setRestaurant($restaurant);
+            }
+
+            return $item;
         }
 
-        if(isset($request["name"]) && $request["name"] !== $item->getName()) {
-            $item->setName($request["name"]);
-        }
-
-        if(isset($request["price"]) && $request["price"] !== $item->getPrice()) {
-            $item->setPrice($request["price"]);
-        }
-
-        if(isset($request["pic"]) && $request["pic"] !== $item->getPic()) {
-            $item->setPic($request["pic"]);
-        }
-
-        if(isset($request["restaurant"]) && $request["restaurant"] !== $item->getRestaurant()->getId()) {
-            $restaurant = $documentManager->getRepository(Restaurant::class)->findOneBy(['_id' => $request["restaurant"]]);
-            $item->setRestaurant($restaurant);
-        }
-
-        return $item;
+        return null;
     }
 }

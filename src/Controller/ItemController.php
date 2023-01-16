@@ -78,16 +78,21 @@ class ItemController extends AbstractController
 
         $item = $this->dm->getRepository(Item::class)->findOneBy(['_id' => $idItem]);
         $item = $this->itemService->itemEdit($requestData, $this->dm, $item);
+        if ($item) {
+            try {
+                $this->dm->persist($item);
+                $this->dm->flush();
+                $response->setData('A item was be edited');
+                $response->setStatusCode(200);
+            }
+            catch (\Exception $exception) {
+                dd($exception);
+            }
+        } else {
+            $response->setData('Any item can be edited');
+            $response->setStatusCode(400);
+        }
 
-        try {
-            $this->dm->persist($item);
-            $this->dm->flush();
-            $response->setData('A item was be edited');
-            $response->setStatusCode(200);
-        }
-        catch (\Exception $exception) {
-            dd($exception);
-        }
         return $response;
     }
 

@@ -14,7 +14,7 @@ class Restaurant
     /**
      * @MongoDB\Id
      */
-    protected mixed $_id;
+    protected mixed $_id = null;
 
     /**
      * @MongoDB\ReferenceMany(targetDocument=Item::class, mappedBy="restaurant")

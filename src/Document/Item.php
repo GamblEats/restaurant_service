@@ -19,7 +19,7 @@ class Item
     /**
      * @MongoDB\ReferenceOne(targetDocument=Restaurant::class, inversedBy="items", storeAs="id")
      */
-    protected Restaurant $restaurant;
+    protected ?Restaurant $restaurant = null;
 
     /**
      * @MongoDB\Field(type="float")
@@ -133,17 +133,17 @@ class Item
     }
 
     /**
-     * @return Restaurant
+     * @return ?Restaurant
      */
-    public function getRestaurant(): Restaurant
+    public function getRestaurant(): ?Restaurant
     {
         return $this->restaurant;
     }
 
     /**
-     * @param Restaurant $restaurant
+     * @param ?Restaurant $restaurant
      */
-    public function setRestaurant(Restaurant $restaurant): void
+    public function setRestaurant(?Restaurant $restaurant): void
     {
         $this->restaurant = $restaurant;
     }

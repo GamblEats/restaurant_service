@@ -153,4 +153,26 @@ class RestaurantController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @Route("/users/{id}/restaurants", name="restaurant_by_user_id", methods={"GET"})
+     * @param Request $request
+     * @param string $id
+     * @return Response
+     */
+    public function getRestaurantsByUser(Request $request, string $id): Response
+    {
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+
+        $restaurant = $this->dm->getRepository(Restaurant::class)->findOneBy(['owner' => $id]);
+
+        if ($restaurant) {
+            $response->setData($restaurant->toArray());
+        } else {
+            $response->setData(null);
+        }
+
+        return $response;
+    }
 }

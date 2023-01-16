@@ -44,7 +44,6 @@ class MenuController extends AbstractController
                     }
                 }
             }
-
             $response->setData($menuArray);
         } else {
             $response->setData(null);

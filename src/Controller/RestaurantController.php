@@ -56,19 +56,7 @@ class RestaurantController extends AbstractController
 
         if ($restaurant) {
             $restaurantArray = $restaurant->toArrayFull();
-
             $restaurantArray['menus'] = $this->restaurantService->getMenuAndItemsByRestaurant($restaurant)['menus'];
-            $restaurantUser = $restaurant->getOwner();
-
-//        try {
-//            $requestAPI = $httpClient->request(
-//                'GET',
-//                $urlUser . $restaurantUser . 'view'
-//            );
-//            $restaurantArray['owner'] = json_decode($requestAPI->getContent());
-//        } catch (\Exception $exception) {
-//
-//        }
             $response->setData($restaurantArray);
         } else {
             $response->setData(null);

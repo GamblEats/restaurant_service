@@ -53,10 +53,11 @@ class RestaurantController extends AbstractController
     {
         $response = new JsonResponse();
         $restaurant = $this->dm->getRepository(Restaurant::class)->findOneBy(['_id' => $id]);
-        $restaurantArray = $restaurant->toArrayFull();
+        if ($restaurant) {
+            $restaurantArray = $restaurant->toArrayFull();
 
-        $restaurantArray['menus'] = $this->restaurantService->getMenuAndItemsByRestaurant($restaurant)['menus'];
-        $restaurantUser = $restaurant->getOwner();
+            $restaurantArray['menus'] = $this->restaurantService->getMenuAndItemsByRestaurant($restaurant)['menus'];
+            $restaurantUser = $restaurant->getOwner();
 
 //        try {
 //            $requestAPI = $httpClient->request(
@@ -68,8 +69,13 @@ class RestaurantController extends AbstractController
 //
 //        }
 
-        $response->setStatusCode(200);
-        $response->setData($restaurantArray);
+            $response->setStatusCode(200);
+            $response->setData($restaurantArray);
+        } else {
+            $response->setStatusCode(200);
+            $response->setData(null);
+        }
+
 
         return $response;
     }

@@ -40,7 +40,7 @@ class MenuService
             foreach ($request['items'] as $item) {
                 $newItem = $dm->getRepository(Item::class)->findOneBy(['_id' => $item]);
                 if ($newItem) {
-                    $itemsArray[$newItem->getId()] = $newItem->toArray();
+                    $itemsArray[] = $newItem->toArray();
                 }
             }
             $menu->setItems($itemsArray);
@@ -77,7 +77,7 @@ class MenuService
             foreach ($request['items'] as $item) {
                 $newItem = $dm->getRepository(Item::class)->findOneBy(['_id' => $item]);
                 if ($newItem) {
-                    $itemsArray[$newItem->getId()] = $newItem->toArray();
+                    $itemsArray[] = $newItem->toArray();
                 }
             }
             $menu->setItems($itemsArray);

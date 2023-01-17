@@ -35,15 +35,7 @@ class MenuController extends AbstractController
         $response->setStatusCode(200);
         if ($menu) {
             $menuArray = $menu->toArray();
-            $menuArray['items'] = [];
-            if ($menu->getItems()) {
-                foreach ($menu->getItems() as $key => $item) {
-                    $itemObject = $this->dm->getRepository(Item::class)->findOneBy(['_id' => $key]);
-                    if ($itemObject) {
-                        $menuArray['items'][] = $itemObject->toArray();
-                    }
-                }
-            }
+            $menuArray['items'] = $menu->getItems();
             $response->setData($menuArray);
         } else {
             $response->setData(null);

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Document\Item;
 use App\Document\Menu;
 use App\Document\Restaurant;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -36,8 +37,11 @@ class MenuService
 
         if (isset($request["items"]) && $request["items"] !== []) {
             $itemsArray = [];
-            foreach ($request['items'] as $key => $item) {
-                $itemsArray[$key] = true;
+            foreach ($request['items'] as $item) {
+                $newItem = $dm->getRepository(Item::class)->findOneBy(['_id' => $item]);
+                if ($newItem) {
+                    $itemsArray[$newItem->getId()] = $newItem->toArray();
+                }
             }
             $menu->setItems($itemsArray);
         }
@@ -68,10 +72,13 @@ class MenuService
             $menu->setRestaurant($restaurant);
         }
 
-        if (isset($request["items"]) && $request["items"] !== $menu->getItems()) {
+        if (isset($request["items"]) && $request["items"] !== []) {
             $itemsArray = [];
-            foreach ($request['items'] as $key => $item) {
-                $itemsArray[$key] = true;
+            foreach ($request['items'] as $item) {
+                $newItem = $dm->getRepository(Item::class)->findOneBy(['_id' => $item]);
+                if ($newItem) {
+                    $itemsArray[$newItem->getId()] = $newItem->toArray();
+                }
             }
             $menu->setItems($itemsArray);
         }

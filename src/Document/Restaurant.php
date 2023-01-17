@@ -163,6 +163,7 @@ class Restaurant
             'id' => $this->getId(),
             'deliveryPrice' => $this->getDeliveryPrice(),
             'deliveryTime' => $this->getDeliveryTime(),
+            'address' => $this->getAddress(),
             'rating' => $this->getRating(),
             'description' => $this->getDescription(),
             'items' => $toArrayItems,

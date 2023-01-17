@@ -27,7 +27,7 @@ class Restaurant
     protected ArrayCollection $menus;
 
     /**
-     * @MongoDB\Field(type="object_id")
+     * @MongoDB\Field(type="string")
      */
     protected $owner;
 

@@ -76,6 +76,16 @@ class Restaurant
      */
     protected bool $isDeployed;
 
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected ?string $city = null;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected ?string $postalCode = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -167,7 +177,9 @@ class Restaurant
             'rating' => $this->getRating(),
             'description' => $this->getDescription(),
             'items' => $toArrayItems,
-            'categories' => $toArrayCategories
+            'categories' => $toArrayCategories,
+            'city' => $this->getCity(),
+            'postalCode' => $this->getPostalCode()
         ];
     }
 
@@ -323,5 +335,38 @@ class Restaurant
     public function setCategories($categories): void
     {
         $this->categories = $categories;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string|null $city
+     */
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * @param string|null $postalCode
+     */
+    public function setPostalCode(?string $postalCode): void
+    {
+        $this->postalCode = $postalCode;
     }
 }

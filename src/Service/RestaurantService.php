@@ -55,6 +55,14 @@ class RestaurantService
             $restaurant->setCategories($request["categories"]);
         }
 
+        if(isset($request["city"]) && $request["city"] !== "") {
+            $restaurant->setCategories($request["city"]);
+        }
+
+        if(isset($request["postalCode"]) && $request["postalCode"] !== "") {
+            $restaurant->setPostalCode($request["postalCode"]);
+        }
+
         return $restaurant;
     }
 
@@ -94,6 +102,14 @@ class RestaurantService
 
         if(isset($request["categories"]) && $request["categories"] !== $restaurant->getCategories()) {
             $restaurant->setCategories($request["categories"]);
+        }
+
+        if(isset($request["city"]) && $request["city"] !== $restaurant->getCity()) {
+            $restaurant->setCity($request["city"]);
+        }
+
+        if(isset($request["postalCode"]) && $request["postalCode"] !== $restaurant->getPostalCode()) {
+            $restaurant->setPostalCode($request["postalCode"]);
         }
 
 

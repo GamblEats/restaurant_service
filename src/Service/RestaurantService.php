@@ -40,7 +40,7 @@ class RestaurantService
             $restaurant->setDeliveryTime($request["deliveryTime"]);
         }
         if (isset($request["rating"]) && $request["rating"] !== "") {
-            $restaurant->setRating($request["rating"]);
+            $restaurant->setRating(rand(1, 5));
         }
 
         if (isset($request["description"]) && $request["description"] !== "") {

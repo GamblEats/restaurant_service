@@ -29,6 +29,10 @@ class ItemService
             $item->setPic($request["pic"]);
         }
 
+        if (isset($request["description"]) && $request["description"] !== "") {
+            $item->setDescription($request["description"]);
+        }
+
         if (isset($request["restaurant"]) && $request["restaurant"] !== "") {
             $restaurant = $dm->getRepository(Restaurant::class)->findOneBy(['_id' => $request["restaurant"]]);
             $item->setRestaurant($restaurant);
@@ -54,6 +58,10 @@ class ItemService
 
             if(isset($request["pic"]) && $request["pic"] !== $item->getPic()) {
                 $item->setPic($request["pic"]);
+            }
+
+            if(isset($request["description"]) && $request["description"] !== $item->getDescription()) {
+                $item->setDescription($request["description"]);
             }
 
             if(isset($request["restaurant"]) && $request["restaurant"] !== $item->getRestaurant()->getId()) {

@@ -42,6 +42,11 @@ class Item
     protected ?string $category = null;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    protected ?string $description = null;
+
+    /**
      * @return mixed
      */
     public function getId(): mixed
@@ -128,7 +133,8 @@ class Item
             'category' => $this->getCategory(),
             'name' => $this->getName(),
             'price' => $this->getPrice(),
-            'pic' => $this->getPic()
+            'pic' => $this->getPic(),
+            'description' => $this->getDescription()
         ];
     }
 
@@ -146,6 +152,22 @@ class Item
     public function setRestaurant(?Restaurant $restaurant): void
     {
         $this->restaurant = $restaurant;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
     }
 
 }

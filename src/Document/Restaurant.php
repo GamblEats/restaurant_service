@@ -88,6 +88,7 @@ class Restaurant
 
     public function __construct()
     {
+        $this->rating = rand(1, 5);
         $this->items = new ArrayCollection();
     }
 

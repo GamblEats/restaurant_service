@@ -56,7 +56,7 @@ class RestaurantService
         }
 
         if(isset($request["city"]) && $request["city"] !== "") {
-            $restaurant->setCategories($request["city"]);
+            $restaurant->setCity($request["city"]);
         }
 
         if(isset($request["postalCode"]) && $request["postalCode"] !== "") {

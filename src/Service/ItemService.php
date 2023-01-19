@@ -64,7 +64,7 @@ class ItemService
                 $item->setDescription($request["description"]);
             }
 
-            if(isset($request["restaurant"]) && $request["restaurant"] !== $item->getRestaurant()->getId()) {
+            if(isset($request["restaurant"]) && $request["restaurant"] !== $item->getRestaurant()?->getId()) {
                 $restaurant = $documentManager->getRepository(Restaurant::class)->findOneBy(['_id' => $request["restaurant"]]);
                 $item->setRestaurant($restaurant);
             }

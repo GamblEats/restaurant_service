@@ -179,7 +179,8 @@ class Restaurant
             'items' => $toArrayItems,
             'categories' => $toArrayCategories,
             'city' => $this->getCity(),
-            'postalCode' => $this->getPostalCode()
+            'postalCode' => $this->getPostalCode(),
+            'owner' => $this->getOwner()
         ];
     }
 

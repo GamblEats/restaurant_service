@@ -123,7 +123,7 @@ class RestaurantService
             $menuArray = $menu->toArray();
             $menuArray['items'] = [];
             foreach ($menu->getItems() as $key => $item) {
-                $itemObject = $this->itemRepository->findOneBy(['_id' => $key]);
+                $itemObject = $this->itemRepository->findOneBy(['_id' => $item['id']]);
                 if ($itemObject) {
                     $menuArray['items'][] = $itemObject->toArray();
                 }
